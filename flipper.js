@@ -1,16 +1,15 @@
 
 
 class Flipper {
-    constructor(ctx_arg, x, y, w, h, stroke_width ) {
+    constructor(ctx_arg, x, y, w, h, edge_width ) {
         this.ctx = ctx_arg
         this.x = x
         this.y = y
         this.w = w
         this.h = h
-        this.stroke_width = stroke_width
-        this.edge = 1
-        this.flip_w = w - 2*stroke_width - 2*this.edge
-        this.flip_h = h - 2*stroke_width - 2*this.edge
+        this.edge_width = edge_width
+        this.flip_w = w - 2*edge_width
+        this.flip_h = h - 2*edge_width
 
     }
 

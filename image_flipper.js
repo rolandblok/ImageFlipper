@@ -46,7 +46,7 @@ canvas.onmousemove = function(event){
 edge = 10
 no_flippers_x = 10
 no_flippers_y = 10
-stroke_width  = 5
+flip_edge  = 5
 flip_w = (canvas.width - 2*edge) / no_flippers_x
 flip_h = (canvas.height - 2*edge) / no_flippers_y
 
@@ -56,7 +56,7 @@ let yf = edge
 for (let xfi = 0; xfi < no_flippers_x; xfi++) {
   flippers[xfi] = new Array(no_flippers_x)
   for (let yfi = 0; yfi < no_flippers_y; yfi++) {
-    flippers[xfi][yfi] = new Flipper(ctx_flipper, xf, yf, flip_w, flip_h, stroke_width)
+    flippers[xfi][yfi] = new Flipper(ctx_flipper, xf, yf, flip_w, flip_h, flip_edge)
     yf += flip_h
   }
   yf = edge
