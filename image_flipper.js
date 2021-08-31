@@ -73,9 +73,6 @@ this.gui = new dat.GUI();
 this.gui.add(glb, "x", 1)
 
 
-
-
-
 // udpate loop program
 var fps = 0;
 var fps_cntr = 0;

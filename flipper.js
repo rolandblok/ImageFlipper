@@ -15,14 +15,15 @@ class Flipper {
 
     draw() {
         this.ctx.beginPath()
-        this.ctx.lineWidth = stroke_width
-        this.ctx.strokeStyle = '#FF0000';
-        this.ctx.rect(this.x+this.edge, this.y+this.edge, this.w-this.stroke_width, this.h-this.stroke_width)
+        this.ctx.lineWidth = 0
+        this.ctx.fillStyle = '#111111';
+        this.ctx.fillRect(this.x, this.y, this.w, this.h)
         this.ctx.stroke()
 
-        this.ctx.fillStyle = '#222222';
-        this.ctx.fillRect(this.x + this.edge, this.y + this.edge, this.flip_w, this.flip_h )
-
+        this.ctx.fillStyle = '#aaaaaa';
+        this.ctx.fillRect(this.x + this.edge_width, this.y + this.edge_width, this.flip_w, this.flip_h )
+        this.ctx.stroke()
 
       }
+
 }
