@@ -28,7 +28,6 @@ canvas.onmouseup = function(e) {
 canvas.onmousemove = function(event){
   if (mouse_down) {
 
-      console.log("mvoe")
       let bound = canvas.getBoundingClientRect();
 
       let x = event.clientX - bound.left - canvas.clientLeft;
@@ -109,8 +108,6 @@ function draw(ctx_flipper, d_time_ms) {
   let s_w = 0.5 * canvas.width 
 
   let size =  s_w * (0.25 + 0.15 * Math.sin(0.001*total_draw_time_ms)) 
-
-  ctx_flipper.fillRect(canvas.width/2 - size/2, canvas.height/2 - size/2, size, size);
 
 }
 
