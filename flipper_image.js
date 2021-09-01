@@ -31,11 +31,11 @@ class FlipperImage {
         ctx.stroke()
         let wi = W / this.xi
         let hi = H / this.yi
-        for(let pixx = 0; pixx < this.xi; pixx ++) {
-            for(let pixy = 0; pixx < this.yi; pixx++){
-                if (this.pixels[pixx][pixy]) {
+        for(let pixX = 0; pixX < this.xi; pixX ++) {
+            for(let pixY = 0; pixY < this.yi; pixY++){
+                if (this.pixels[pixX][pixY]) {
                     ctx.fillStyle = '#FFFFFF';
-                    ctx.fillRect(x+pixx*wi, y+pixy*hi, wi, hi )
+                    ctx.fillRect(x+pixX*wi, y+pixY*hi, wi, hi )
                     ctx.stroke()
                 }
             }

@@ -17,23 +17,16 @@ class Flipper {
         // create all flip images:
         this.flip_images = new Array()
 
-        // full white
-        let f_white = new FlipperImage(1,1)
-        f_white.setPix(0,0, true)
-        this.flip_images.push(f_white)
-
-        // full black
-        let f_black = new FlipperImage(1,1)
-        this.flip_images.push(f_black)
-
         // quarters
         for (let k = 0; k < 2; k ++) {
             for (let l = 0; l < 2; l ++) {
                 for (let i = 0; i < 2; i ++){
                     for (let j = 0; j < 2; j ++) {
                         let quar = new FlipperImage(2,2)
-                        quar.setPix(i, j, true)
-                        quar.setPix(k, l, true)
+                        if (k == 1) { quar.setPix(0, 0, true)}
+                        if (l == 1) { quar.setPix(0, 1, true)}
+                        if (i == 1) { quar.setPix(1, 0, true)}
+                        if (j == 1) { quar.setPix(1, 1, true)}
                         this.flip_images.push(quar)
                     }
                 }
