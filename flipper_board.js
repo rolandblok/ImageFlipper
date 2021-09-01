@@ -28,6 +28,8 @@ window.addEventListener('keydown', function(e){
         flippers[xfi][yfi].set_best_flipper(ctx)
       }
     }    
+  } else if (e.key == 't' ){
+    flippers[0][0].TST_set_next_flipper()
   }
 })
 

@@ -74,19 +74,31 @@ class Flipper {
         this.ctx.fillRect(this.x, this.y, this.w, this.h)
         this.ctx.stroke()
 
+        // update the animation angles
         if (this.target_flip_image != this.current_flip_image){
             this.current_angle += this.rot_speed*d_time_ms/1000
             if (this.current_angle >=1) {
                 this.current_angle = 0
-                this.current_flip_image += 1
-                if (this.current_flip_image == this.flip_images.length) {
-                    this.current_flip_image = 0
-                }
+                this.current_flip_image = this._get_next_flipper(this.current_flip_image)
             }
         }
 
-        this.flip_images[this.current_flip_image].draw(this.ctx, this.x + this.edge_width, 
-            this.y + this.edge_width, this.flip_w, this.flip_h, this.current_angle )
+        // draw the flippers
+        if (this.target_flip_image == this.current_flip_image) {  // we arived, just draw the current.
+            this.current_angle = 0
+            this.flip_images[this.current_flip_image].draw(this.ctx, this.x + this.edge_width, this.y + this.edge_width, 
+                                                           this.flip_w, this.flip_h, 0 )
+        } else {
+            let next_flipper = this._get_next_flipper(this.current_flip_image)
+            if (this.current_angle <= 0.5) {
+                this.flip_images[next_flipper           ].draw(this.ctx, this.x + this.edge_width, this.y + this.edge_width, this.flip_w, this.flip_h, 0 )
+                this.flip_images[this.current_flip_image].draw(this.ctx, this.x + this.edge_width, this.y + this.edge_width, this.flip_w, this.flip_h, this.current_angle )
+            } else {
+                this.flip_images[this.current_flip_image].draw(this.ctx, this.x + this.edge_width, this.y + this.edge_width, this.flip_w, this.flip_h, 0 )
+                this.flip_images[next_flipper           ].draw(this.ctx, this.x + this.edge_width, this.y + this.edge_width, this.flip_w, this.flip_h, this.current_angle )
+            }
+    
+        }
 
     }
 
@@ -106,7 +118,26 @@ class Flipper {
             }
         }
         this.target_flip_image = best_flipper
+    }
 
+    /**
+     * test function
+     */
+    TST_set_next_flipper() {
+        this.target_flip_image = this._get_next_flipper(this.target_flip_image)
+    }
+
+    /**
+     * return the next flipper
+     * @param {*} current 
+     * @returns 
+     */
+    _get_next_flipper(current) {
+        let next = current + 1
+        if (next == this.flip_images.length) {
+            next = 0
+        }
+        return next
     }
 
 }

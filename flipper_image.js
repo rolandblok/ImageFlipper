@@ -27,26 +27,45 @@ class FlipperImage {
      * @param {*} y position on ctx
      * @param {*} W widht to scale to on ctx
      * @param {*} H height to scale to on ctx.
-     * @param {*} angle : the relative flipper angle : for top 0 --> 0.5
+     * @param {*} angle : the relative flipper angle : for top 0 --> 1
      */
     draw(ctx, x, y, W, H, angle) {
-        //draw background
-        ctx.fillStyle = this.back_color
-        ctx.fillRect(x, y, W, H )
-        ctx.stroke()
-        //draw the pixels
-        let wi = Math.round(W / this.W)
-        let hi = Math.round(H / this.H)
-        for(let pixX = 0; pixX < this.W; pixX ++) {
-            for(let pixY = 0; pixY < this.H; pixY++){
+        var top_scale = (angle < 0.5) ? (1-2*angle)   : 1  // go from 0-->1 for angles below 0.5
+        var bot_scale = (angle > 0.5) ? 2*(angle-0.5) : 1  // go from 0-->1 for angles above 0.5
+
+        let wi = Math.round(W / this.W)  //  pixel width
+        let hi = Math.round(H / this.H)  //  pixel height
+        //draw the top pixels
+        let top_offset = H/2*(1-top_scale)
+        let thi = hi*top_scale           // top pixel height
+        for(let pixX = 0; pixX < this.W; pixX++) {
+            for(let pixY = 0; pixY < this.H/2; pixY++) { // top half
                 if (this.pixels[pixX][pixY]) {
                     ctx.fillStyle = this.fore_color
-                    ctx.fillRect(x+pixX*wi, y+pixY*hi, wi, hi )
-                    ctx.stroke()
+                } else {
+                    ctx.fillStyle = this.back_color
                 }
+                ctx.fillRect(x+pixX*wi, y + top_offset + pixY*thi, wi, thi )
+                ctx.stroke()            
             }
-        }        
+        }
+        //draw the bottom pixels
+        thi = hi*bot_scale           // bottom pixel height
+        for(let pixX = 0; pixX < this.W; pixX++) {
+            for(let pixY = this.H/2; pixY < this.H; pixY++) { // top half
+                if (this.pixels[pixX][pixY]) {
+                    ctx.fillStyle = this.fore_color
+                } else {
+                    ctx.fillStyle = this.back_color
+                }
+                ctx.fillRect(x+pixX*wi,  y + H/2 + (pixY-this.H/2)*thi, wi, thi )
+                ctx.stroke()
+                
+            }
+        }
+
     }
+
 
     /**
      * Get if a pixel value for a pixel x,y in a reference image resolution of W, H
