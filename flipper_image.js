@@ -79,7 +79,9 @@ class FlipperImage {
         if ((W >= this.W) && (H >= this.H)) {
             let i = Math.floor(x * this.W / W)
             let j = Math.floor(y * this.H / H)
-            return(this.pixels[i][j])
+            let res = this.pixels[i][j]
+            return res
+            //return false
 
         } else {
             console.log("not implemented")
@@ -89,18 +91,20 @@ class FlipperImage {
     determine_overlap(image_data) {
 
         let no_overlapping_pixels = 0
-        for(let pixX = 0; pixX < image_data.width; pixX ++) {
-            for(let pixY = 0; pixY < image_data.height; pixY++){
-                let index = 4*(pixX + pixY*image_data.width)
+        let image_data_width = image_data.width;
+        let image_data_height = image_data.height
+        for(let pixX = 0; pixX < image_data_width; pixX ++) {
+            for(let pixY = 0; pixY < image_data_height; pixY++){
+                let index = 4*(pixX + pixY*image_data_width)
                 //if average of all three colors are above half intensity, we consider it true.
                 let im_pix_on = ((image_data.data[index] + image_data.data[index+1] + image_data.data[index+2]) > 3*128)
-                if (im_pix_on == this._get_scaled_pixel(pixX, pixY, image_data.width, image_data.height)) {
+                if (im_pix_on == this._get_scaled_pixel(pixX, pixY, image_data_width, image_data_height)) {
                     no_overlapping_pixels++
                 }
             }
         }        
 
-        return no_overlapping_pixels / (image_data.width * image_data.height)
+        return no_overlapping_pixels / (image_data_width * image_data_height)
     }
 }
 

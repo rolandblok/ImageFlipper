@@ -22,7 +22,7 @@ window.addEventListener('keydown', function(e){
   if (e.key == 'r' ){
     ctx.fillStyle = back_color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.stroke()
+    ctx.fill()
     for (let xfi = 0; xfi < no_flippers_x; xfi++) {
       for (let yfi = 0; yfi < no_flippers_y; yfi++) {
         flippers[xfi][yfi].set_best_flipper(ctx)
