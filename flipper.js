@@ -1,8 +1,5 @@
 
 
-
-
-
 class Flipper {
     constructor(ctx_arg, x, y, w, h, edge_width ) {
         this.ctx = ctx_arg
@@ -102,6 +99,7 @@ class Flipper {
 
     }
 
+
     /**
      * set the best flipper matching given reference image, using own locations
      * @param {} image_data 
@@ -139,6 +137,91 @@ class Flipper {
         }
         return next
     }
+
+    set_board() {
+        this.board_W = 1000  // print out board width mm
+        this.board_H = 1000  // print out board height mm
+        this.board_we = 100   // room to leave op at edge in width
+        this.board_wr = 100   // room to leave between flips in width
+        this.board_he = 100   // room to leave op at edge in height
+        this.board_hr = 100   // room to leave between flips in height
+        this.flpr_w = 120    // flipper width mm
+        this.flpr_h = 65     // flipper height mm
+        this.flpr_nh = 2     // notch height mm
+        this.flpr_nw = 1.65  // notch width mm
+        this.flpr_no = 1.30  // notch offset from flipper center mm
+        this.flpr_border = 5   // top and bottom border mm
+        this.flpr_back_color = [255,255,255]  // background and border color
+        this.flpr_front_color = [0,0,0]       // front color
+        this.no_fl_x = Math.floor((this.board_W - 2*this.board_we + this.board_wr) / 
+                                    (this.flpr_w + 2*this.flpr_nw + this.board_wr))
+        this.no_fl_y = Math.floor((this.board_H - 2*this.board_he + this.board_hr) / 
+                                    (this.flpr_w  + this.board_hr))
+
+    }
+    draw_print_board_front(p) {
+        // p.
+    }
+    draw_print_board_back(p) {
+
+    }
+    draw_print_board_contour(p) {
+        this.set_board()
+        p.clear()
+        p.stroke(this.flpr_back_color) 
+        p.strokeWeight(1)
+        p.fill(this.flpr_back_color)
+        p.rect(0,0,this.board_W, this.board_H)  // full fill with back ground
+        // p.no_fill()
+        p.stroke(this.flpr_front_color)
+
+        for(let y_i = 0; y_i < this.no_fl_y; y_i++) {
+            for (let x_i = 0; x_i < this.no_fl_x; x_i++) {
+                let fl_i = x_i + y_i*this.no_fl_x // flipper index
+
+                if (fl_i < this.flip_images.length) {
+                    let X = this.board_we + x_i * (this.flpr_w + 2*this.flpr_nw + this.flpr_wr)
+                    let Y = this.board_hr + y_i * (this.flpr_h + this.flpr_hr)
+
+                    p.beginShape()
+                    X += this.flpr_nw
+                    p.vertex(X,Y)
+                    X += this.flpr_w
+                    p.vertex(X,Y)
+                    Y += this.flpr_h - this.flpr_nh - this.flpr_no
+                    p.vertex(X,Y)
+                    X += this.flpr_nw
+                    p.vertex(X,Y)
+                    Y += this.flpr_nh
+                    p.vertex(X,Y)
+                    X -= this.flpr_nw
+                    p.vertex(X,Y)
+                    Y += this.flpr_no
+                    p.vertex(X,Y)
+                    X -= this.flpr_w
+                    p.vertex(X,Y)
+                    Y -= this.flpr_no
+                    p.vertex(X,Y)
+                    X -= this.flpr_nw
+                    p.vertex(X,Y)
+                    Y -= this.flpr_nh
+                    p.vertex(X,Y)
+                    X += this.flpr_nw
+                    p.vertex(X,Y)
+                    Y -= this.flpr_h - this.flpr_nh - this.flpr_no
+                    p.vertex(X,Y)
+                    
+                    p.endShape()
+
+                }
+            }
+        }
+    }
+    // draw one conto
+    draw_print_flip_contour(p, X, Y) {
+
+    }
+
 
 }
 
