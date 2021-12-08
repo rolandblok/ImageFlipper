@@ -17,10 +17,6 @@ canvas_flipper.width  = 640;
 canvas_flipper.height = 640;
 var ctx_flipper = canvas_flipper.getContext("2d");
 
-
-
-
-
 window.addEventListener('keydown', function(e){
   console.log("key pressed " + e.key)
   if (e.key == 'r' ){
@@ -98,39 +94,8 @@ function resize() {
   // canvas.height = window.innerHeight;
 }
 
-this.downloadSvg=()=> {
-  console.log("save")
-  print_out_front_svg.save_canvas()
-  print_out_back_svg.save_canvas()
-  print_out_contour_svg.save_canvas()
-}
 this.gui = new dat.GUI();
-this.gui.add(this, 'downloadSvg')
-
-var print_out_front = new p5(sketch, "print_out_front" )
-print_out_front.side = SIDE_FRONT
-print_out_front.flipper = flippers[0][0]
-print_out_front.type = "SCREEN"
-var print_out_back = new p5(sketch, "print_out_back" )
-print_out_back.side = SIDE_BACK
-print_out_back.flipper = flippers[0][0]
-print_out_back.type = "SCREEN"
-var print_out_contour = new p5(sketch, "print_out_contour")
-print_out_contour.side = SIDE_CONTOUR
-print_out_contour.flipper = flippers[0][0]
-print_out_contour = "SCREEN"
-var print_out_front_svg = new p5(sketch, "print_out_front_svg" )
-print_out_front_svg.side = SIDE_FRONT
-print_out_front_svg.flipper = flippers[0][0]
-print_out_front_svg.type = "SVG"
-var print_out_back_svg = new p5(sketch, "print_out_back_svg" )
-print_out_back_svg.side = SIDE_BACK
-print_out_back_svg.flipper = flippers[0][0]
-print_out_back_svg.type = "SVG"
-var print_out_contour_svg = new p5(sketch, "print_out_contour_svg")
-print_out_contour_svg.side = SIDE_CONTOUR
-print_out_contour_svg.flipper = flippers[0][0]
-print_out_contour_svg = "SVG"
+this.gui.add(glb, "x", 1)
 
 
 // udpate loop program
@@ -175,6 +140,8 @@ function drawAndUpdate(cur_time) {
   last_drw_time = cur_time;
   requestAnimationFrame(drawAndUpdate);
 }
+
+
 
 resize();
 
