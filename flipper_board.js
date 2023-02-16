@@ -78,10 +78,15 @@ flip_h = (canvas.height - 2*edge) / no_flippers_y
 flippers = new Array(no_flippers_y)
 let xf = edge
 let yf = edge
+let flip_no = 0
 for (let xfi = 0; xfi < no_flippers_x; xfi++) {
   flippers[xfi] = new Array(no_flippers_x)
   for (let yfi = 0; yfi < no_flippers_y; yfi++) {
     flippers[xfi][yfi] = new Flipper(ctx_flipper, xf, yf, flip_w, flip_h, flip_edge)
+
+    flippers[xfi][yfi].TST_set_target_flip(flip_no)
+    flip_no++
+
     yf += flip_h
   }
   yf = edge

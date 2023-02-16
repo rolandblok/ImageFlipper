@@ -126,6 +126,9 @@ class Flipper {
     TST_set_next_flipper() {
         this.target_flip_image = this._get_next_flipper(this.target_flip_image)
     }
+    TST_set_target_flip(id) {
+        this.target_flip_image = id%this.flip_images.length
+    }
 
     /**
      * return the next flipper
